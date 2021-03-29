@@ -1,6 +1,5 @@
 package config
 
-
 // nolint:lll
 const defaultConfig = `
 server:

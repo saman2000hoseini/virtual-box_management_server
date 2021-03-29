@@ -1,10 +1,9 @@
 package router
 
 import (
-	"CloudComputing/virtual-box/internal/app/virtual-box/config"
-	"citadel/pkg/version"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/saman2000hoseini/virtual-box_management_server/internal/app/virtual-box/config"
 	"github.com/sirupsen/logrus"
 )
 
@@ -30,7 +29,6 @@ func New(cfg config.Config) *echo.Echo {
 	e.Use(middleware.RecoverWithConfig(recoverConfig))
 
 	e.Use(middleware.CORS())
-	e.Use(version.Middleware)
 
 	return e
 }

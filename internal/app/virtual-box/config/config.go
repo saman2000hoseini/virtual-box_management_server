@@ -1,8 +1,9 @@
 package config
 
 import (
-	"CloudComputing/virtual-box/pkg/config"
 	"time"
+
+	"github.com/saman2000hoseini/virtual-box_management_server/pkg/config"
 
 	"github.com/sirupsen/logrus"
 	"gopkg.in/go-playground/validator.v9"
@@ -21,9 +22,9 @@ type (
 
 	// Server represents server configuration struct.
 	Server struct {
-		Address         string        `mapstructure:"address"`
-		ReadTimeout     time.Duration `mapstructure:"read-timeout"`
-		WriteTimeout    time.Duration `mapstructure:"write-timeout"`
+		Address      string        `mapstructure:"address"`
+		ReadTimeout  time.Duration `mapstructure:"read-timeout"`
+		WriteTimeout time.Duration `mapstructure:"write-timeout"`
 	}
 )
 
