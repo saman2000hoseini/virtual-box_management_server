@@ -27,9 +27,10 @@ type (
 	}
 
 	Server struct {
-		Address      string        `mapstructure:"address"`
-		ReadTimeout  time.Duration `mapstructure:"read-timeout"`
-		WriteTimeout time.Duration `mapstructure:"write-timeout"`
+		Address         string        `mapstructure:"address"`
+		GracefulTimeout time.Duration `mapstructure:"graceful-timeout"`
+		ReadTimeout     time.Duration `mapstructure:"read-timeout"`
+		WriteTimeout    time.Duration `mapstructure:"write-timeout"`
 	}
 )
 

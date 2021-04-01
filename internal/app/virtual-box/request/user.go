@@ -9,7 +9,7 @@ type UserRequest struct {
 }
 
 func (r UserRequest) Validate() error {
-	return validation.ValidateStruct(
+	return validation.ValidateStruct(&r,
 		validation.Field(&r.Username, validation.Required),
 		validation.Field(&r.Password, validation.Required),
 	)
