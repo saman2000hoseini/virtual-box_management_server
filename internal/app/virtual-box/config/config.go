@@ -17,10 +17,15 @@ const (
 
 type (
 	Config struct {
+		JWT    JWT    `mapstructure:"jwt"`
 		Server Server `mapstructure:"server"`
 	}
 
-	// Server represents server configuration struct.
+	JWT struct {
+		Expiration time.Duration `mapstructure:"expiration"`
+		Secret     string        `mapstructure:"secret"`
+	}
+
 	Server struct {
 		Address      string        `mapstructure:"address"`
 		ReadTimeout  time.Duration `mapstructure:"read-timeout"`
