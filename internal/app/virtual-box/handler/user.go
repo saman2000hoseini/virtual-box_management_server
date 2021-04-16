@@ -75,7 +75,7 @@ func (h *UserHandler) Login(c echo.Context) error {
 	}
 
 	if !user.CheckPassword(req.Password) {
-		logrus.Infof("login: incorrect password: %s", err.Error())
+		logrus.Info("login: incorrect password")
 		return c.NoContent(http.StatusForbidden)
 	}
 

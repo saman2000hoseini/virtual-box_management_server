@@ -38,6 +38,7 @@ func main(cfg config.Config) {
 	vm.PUT("/alter", vmHandler.ChangeState)
 	vm.PUT("/modify", vmHandler.Modify)
 	vm.POST("/clone", vmHandler.Clone)
+	vm.POST("/exec", vmHandler.Exec)
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, os.Interrupt, syscall.SIGTERM)
