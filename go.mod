@@ -12,9 +12,11 @@ require (
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.7.1
+	github.com/terra-farm/go-virtualbox v0.0.4 // indirect
+	github.com/uruddarraju/virtualbox-go v0.0.0-20200813004450-d5ba1da544c4 // indirect
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
 	golang.org/x/net v0.0.0-20201029221708-28c70e62bb1d // indirect
-	golang.org/x/sys v0.0.0-20201029080932-201ba4db2418 // indirect
+	golang.org/x/sys v0.0.0-20210331175145-43e1dd70ce54 // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/go-playground/validator.v9 v9.31.0
 	gorm.io/driver/sqlite v1.1.4

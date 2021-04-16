@@ -1,14 +1,15 @@
 package handler
 
 import (
+	"net/http"
+	"time"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
 	"github.com/saman2000hoseini/virtual-box_management_server/internal/app/virtual-box/config"
 	"github.com/saman2000hoseini/virtual-box_management_server/internal/app/virtual-box/model"
 	"github.com/saman2000hoseini/virtual-box_management_server/internal/app/virtual-box/request"
 	"github.com/sirupsen/logrus"
-	"net/http"
-	"time"
 )
 
 type UserHandler struct {
@@ -93,8 +94,8 @@ func (h *UserHandler) generateJWT(user model.User) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	claims := token.Claims.(jwt.MapClaims)
-	claims["Username"] = user.Username
-	claims["Role"] = user.Role
+	claims["username"] = user.Username
+	claims["role"] = user.Role
 	claims["exp"] = time.Now().Add(h.Cfg.JWT.Expiration).Unix()
 
 	return token.SignedString([]byte(h.Cfg.JWT.Secret))

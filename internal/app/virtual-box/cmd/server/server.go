@@ -2,6 +2,11 @@ package server
 
 import (
 	"context"
+	"os"
+	"os/signal"
+	"syscall"
+
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/saman2000hoseini/virtual-box_management_server/internal/app/virtual-box/config"
 	"github.com/saman2000hoseini/virtual-box_management_server/internal/app/virtual-box/handler"
 	"github.com/saman2000hoseini/virtual-box_management_server/internal/app/virtual-box/model"
@@ -9,9 +14,6 @@ import (
 	"github.com/saman2000hoseini/virtual-box_management_server/pkg/database"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"os"
-	"os/signal"
-	"syscall"
 )
 
 func main(cfg config.Config) {
@@ -27,6 +29,15 @@ func main(cfg config.Config) {
 
 	e.POST("/register", userHandler.Register)
 	e.POST("/login", userHandler.Login)
+
+	vmHandler := &handler.VMHandler{Cfg: cfg}
+
+	vm := e.Group("/vm", middleware.JWT([]byte(cfg.JWT.Secret)))
+	vm.GET("/status", vmHandler.GetAllStatus)
+	vm.GET("/status/:id", vmHandler.GetStatus)
+	vm.PUT("/alter", vmHandler.ChangeState)
+	vm.PUT("/modify", vmHandler.Modify)
+	vm.POST("/clone", vmHandler.Clone)
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, os.Interrupt, syscall.SIGTERM)

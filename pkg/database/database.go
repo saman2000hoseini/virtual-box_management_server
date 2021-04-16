@@ -2,14 +2,10 @@ package database
 
 import (
 	"errors"
+
 	"github.com/saman2000hoseini/virtual-box_management_server/internal/app/virtual-box/model"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-)
-
-const (
-	healthCheckInterval = 1
-	maxAttempts         = 60
 )
 
 func NewDB() (*gorm.DB, error) {

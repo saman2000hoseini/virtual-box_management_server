@@ -4,8 +4,8 @@ package config
 const defaultConfig = `
 server:
   address: :65432
-  read-timeout: 20s
-  write-timeout: 20s
+  read-timeout: 2m
+  write-timeout: 2m
   graceful-timeout: 5s
 jwt:
   expiration: 2h
