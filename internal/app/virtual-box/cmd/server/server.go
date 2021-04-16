@@ -17,6 +17,10 @@ import (
 )
 
 func main(cfg config.Config) {
+	if err := os.Mkdir("storage", 0755); err != nil {
+		logrus.Info("storage already exists")
+	}
+
 	e := router.New(cfg)
 
 	myDB, err := database.FirstSetup()
@@ -39,6 +43,8 @@ func main(cfg config.Config) {
 	vm.PUT("/modify", vmHandler.Modify)
 	vm.POST("/clone", vmHandler.Clone)
 	vm.POST("/exec", vmHandler.Exec)
+	vm.PUT("/upload", vmHandler.Upload)
+	vm.PUT("/transfer", vmHandler.Transfer)
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, os.Interrupt, syscall.SIGTERM)
