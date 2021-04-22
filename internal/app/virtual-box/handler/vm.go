@@ -279,7 +279,13 @@ func (h *VMHandler) Upload(c echo.Context) error {
 		return c.NoContent(http.StatusForbidden)
 	}
 
-	cmd := exec.Command(vmCommand, guestControl, req.ID, copyto, target, req.DestinationPath, req.SrcPath)
+	var cmd *exec.Cmd
+	if req.Username != nil {
+		cmd = exec.Command(vmCommand, guestControl, req.ID, copyto, target, req.DstPath, req.SrcPath,
+			username, *req.Username, password, *req.Password)
+	} else {
+		cmd = exec.Command(vmCommand, guestControl, req.ID, copyto, target, req.DstPath, req.SrcPath)
+	}
 
 	logrus.Infof("executing %s", cmd)
 
@@ -308,19 +314,32 @@ func (h *VMHandler) Transfer(c echo.Context) error {
 	claims := user.Claims.(jwt.MapClaims)
 
 	role := claims["role"]
-	if role != "admin" && req.SrcPath != "VM1" && req.DestinationPath != "VM1" {
+	if role != "admin" && req.SrcPath != "VM1" && req.DstPath != "VM1" {
 		return c.NoContent(http.StatusForbidden)
 	}
 
 	path := strings.Split(req.SrcPath, "/")
-	if err := exec.Command(vmCommand, guestControl,
-		req.Src, copyfrom, target, "storage/"+path[len(path)-1], req.SrcPath).Run(); err != nil {
-		logrus.Infof("transfering %s to host", path)
+
+	var cmd *exec.Cmd
+	if req.SrcUsername != nil {
+		cmd = exec.Command(vmCommand, guestControl, req.Src, copyfrom, target, "storage/"+path[len(path)-1], req.SrcPath,
+			username, *req.SrcUsername, password, *req.SrcPassword)
+	} else {
+		cmd = exec.Command(vmCommand, guestControl, req.Src, copyfrom, target, "storage/"+path[len(path)-1], req.SrcPath)
+	}
+
+	logrus.Infof("transfering %s to host", path)
+	if err := cmd.Run(); err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	cmd := exec.Command(vmCommand, guestControl,
-		req.Destination, copyto, target, req.DestinationPath, "storage/"+path[len(path)-1])
+	if req.SrcUsername != nil {
+		cmd = exec.Command(vmCommand, guestControl, req.Dst, copyto,
+			target, req.DstPath, "storage/"+path[len(path)-1], username, *req.DstUsername, password, *req.DstPassword)
+	} else {
+		cmd = exec.Command(vmCommand, guestControl, req.Dst, copyto,
+			target, req.DstPath, "storage/"+path[len(path)-1])
+	}
 
 	logrus.Infof("transfering %s to guest", path)
 

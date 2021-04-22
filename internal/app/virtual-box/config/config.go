@@ -3,7 +3,7 @@ package config
 import (
 	"time"
 
-	"github.com/saman2000hoseini/virtual-box_management_server/pkg/config"
+	"github.com/saman2000hoseini/virtual-box_management_server/internal/pkg/config"
 
 	"github.com/sirupsen/logrus"
 	"gopkg.in/go-playground/validator.v9"

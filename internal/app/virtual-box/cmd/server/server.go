@@ -11,7 +11,7 @@ import (
 	"github.com/saman2000hoseini/virtual-box_management_server/internal/app/virtual-box/handler"
 	"github.com/saman2000hoseini/virtual-box_management_server/internal/app/virtual-box/model"
 	"github.com/saman2000hoseini/virtual-box_management_server/internal/app/virtual-box/router"
-	"github.com/saman2000hoseini/virtual-box_management_server/pkg/database"
+	"github.com/saman2000hoseini/virtual-box_management_server/internal/pkg/database"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

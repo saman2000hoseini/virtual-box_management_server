@@ -26,16 +26,22 @@ type ExecRequest struct {
 }
 
 type UploadRequest struct {
-	ID              string `json:"id"`
-	SrcPath         string `json:"src_path"`
-	DestinationPath string `json:"destination_path"`
+	ID       string  `json:"id"`
+	SrcPath  string  `json:"src_path"`
+	DstPath  string  `json:"dst_path"`
+	Username *string `json:"username"`
+	Password *string `json:"password"`
 }
 
 type TransferRequest struct {
-	Src             string `json:"src"`
-	Destination     string `json:"destination"`
-	SrcPath         string `json:"src_path"`
-	DestinationPath string `json:"destination_path"`
+	Src         string  `json:"src"`
+	Dst         string  `json:"dst"`
+	SrcPath     string  `json:"src_path"`
+	DstPath     string  `json:"dst_path"`
+	SrcUsername *string `json:"src_username"`
+	SrcPassword *string `json:"src_password"`
+	DstUsername *string `json:"dst_username"`
+	DstPassword *string `json:"dst_password"`
 }
 
 func (r CloneRequest) Validate() error {
@@ -69,15 +75,15 @@ func (r UploadRequest) Validate() error {
 	return validation.ValidateStruct(&r,
 		validation.Field(&r.ID, validation.Required),
 		validation.Field(&r.SrcPath, validation.Required),
-		validation.Field(&r.DestinationPath, validation.Required),
+		validation.Field(&r.DstPath, validation.Required),
 	)
 }
 
 func (r TransferRequest) Validate() error {
 	return validation.ValidateStruct(&r,
 		validation.Field(&r.Src, validation.Required),
-		validation.Field(&r.Destination, validation.Required),
+		validation.Field(&r.Dst, validation.Required),
 		validation.Field(&r.SrcPath, validation.Required),
-		validation.Field(&r.DestinationPath, validation.Required),
+		validation.Field(&r.DstPath, validation.Required),
 	)
 }
